@@ -8,7 +8,9 @@
     "lint": "eslint .",
     "start": "react-native start",
     "test": "jest",
-    "clean": "rm -rf node_modules && yarn install && yarn cache clean && cd ios && pod deintegrate && pod install && cd .."
+    "node-c": "rm -rf node_modules && yarn install && yarn cache clean && cd ios && pod deintegrate && pod install && cd ..",
+    "pod": "cd ios && pod deintegrate && pod install && cd ..",
+    "clean": "cd android && ./gradlew clean && cd .."
   },
   "dependencies": {
     "@react-navigation/bottom-tabs": "^7.4.2",
@@ -19,10 +21,9 @@
     "react-native": "0.75.5",
     "react-native-dropdown-picker": "^5.4.6",
     "react-native-fast-image": "^8.6.3",
-    "react-native-gesture-handler": "^2.26.0",
+    "react-native-gesture-handler": "~2.16.0",
     "react-native-reanimated": "^3.18.0",
     "react-native-safe-area-context": "^5.5.0",
-    "react-native-svg": "^15.12.0",
     "react-native-vector-icons": "^10.2.0"
   },
   "devDependencies": {

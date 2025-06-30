@@ -1,122 +1,14 @@
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import React, {useState} from 'react';
-import {
-  Alert,
-  Dimensions,
-  SafeAreaView,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import {Alert, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
-import AttachmentButton from '../../components/AttachmentButton';
-import {BudgetCard} from '../../components/BudgetCard';
-import {CategoryBar} from '../../components/CategoryBar';
-import CustomButton, {PillButton} from '../../components/CustomButton';
-import {FilterTabs, SwitchTabs} from '../../components/CustomTabs';
-import Header from '../../components/Header';
-import InputField from '../../components/InputField';
-import RecurringBottomSheet from '../../components/RecurringBottomSheet';
-import ToggleItem from '../../components/ToggleItem';
-import {TransactionCard} from '../../components/TransactionCard';
 import Colors from '../../constants/colors';
-import {n} from '../../constants/normalize';
+import {n, SCREEN_WIDTH} from '../../constants/normalize';
+import BudgetScreen from '../BudgetScreen';
+import HomeScreen from '../HomeScreen';
+import ProfileScreen from '../ProfileScreen';
+import TransactionScreen from '../TransactionScreen';
 
-const {width: screenWidth} = Dimensions.get('window');
-
-// Dummy Screens
-const Home = () => {
-  const [selectedTab, setSelectedTab] = useState('Year');
-  const [switchTab, setSwitchTab] = useState<'left' | 'right'>('left');
-  const [checkbox, setCheckbox] = useState(false);
-  const [radio, setRadio] = useState(false);
-  const [isSwitchOn, setIsSwitchOn] = useState(true);
-
-  return (
-    <SafeAreaView>
-      <ScrollView contentContainerStyle={{paddingBottom: n(20)}}>
-        <Header showBack title="Home" />
-        <FilterTabs
-          options={['Today', 'Week', 'Month', 'Year']}
-          selected={selectedTab}
-          onSelect={setSelectedTab}
-        />
-        <SwitchTabs
-          leftText="Expense"
-          rightText="Income"
-          selected={switchTab}
-          onSelect={setSwitchTab}
-        />
-        <SwitchTabs
-          leftText="Expense"
-          rightText="Income"
-          selected={switchTab}
-          onSelect={setSwitchTab}
-          style={{marginTop: 10}}
-        />
-        <CustomButton
-          text="View"
-          size="small"
-          onPress={() => {}}
-          type="outline"
-        />
-        <PillButton text="See All" onPress={() => {}} />
-        <BudgetCard
-          category="Medical"
-          spent={800}
-          limit={1000}
-          warning={800 < 1000}
-        />
-        <CategoryBar category="Utilities" amount={600} />
-        <TransactionCard
-          title="Shopping"
-          subtitle="Buy an Avocado..."
-          amount={-229000}
-          time="03:30 PM"
-        />
-        <TransactionCard
-          title="Salary"
-          subtitle="Buy an Avocado..."
-          amount={3129000}
-          time="04:30 PM"
-        />
-        <InputField placeholder="Password" secureToggle showEyeIcon />
-        <AttachmentButton onPress={() => console.log('Attach')} />
-        <RecurringBottomSheet />
-        <ToggleItem
-          type="checkbox"
-          value={checkbox}
-          onValueChange={setCheckbox}
-        />
-        <ToggleItem type="radio" value={radio} onValueChange={setRadio} />
-        <ToggleItem
-          type="switch"
-          value={isSwitchOn}
-          onValueChange={setIsSwitchOn}
-        />
-        <CategoryBar category="Utilities" amount={600} />
-        <TransactionCard
-          title="Shopping"
-          subtitle="Buy an Avocado..."
-          amount={-229000}
-          time="03:30 PM"
-        />
-        <TransactionCard
-          title="Salary"
-          subtitle="Buy an Avocado..."
-          amount={3129000}
-          time="04:30 PM"
-        />
-      </ScrollView>
-    </SafeAreaView>
-  );
-};
-
-const Transaction = () => <CenteredText text="Transaction Screen" />;
-const Budget = () => <CenteredText text="Budget Screen" />;
-const Profile = () => <CenteredText text="Profile Screen" />;
 const AddPlaceholder = () => null;
 
 const Tab = createBottomTabNavigator();
@@ -139,7 +31,7 @@ export default function BottomTabs() {
         }}>
         <Tab.Screen
           name="Home"
-          component={Home}
+          component={HomeScreen}
           options={{
             tabBarIcon: ({focused}) => (
               <Icon
@@ -161,7 +53,7 @@ export default function BottomTabs() {
         />
         <Tab.Screen
           name="Transaction"
-          component={Transaction}
+          component={TransactionScreen}
           options={{
             tabBarIcon: ({focused}) => (
               <Icon
@@ -190,7 +82,7 @@ export default function BottomTabs() {
         />
         <Tab.Screen
           name="Budget"
-          component={Budget}
+          component={BudgetScreen}
           options={{
             tabBarIcon: ({focused}) => (
               <Icon
@@ -212,7 +104,7 @@ export default function BottomTabs() {
         />
         <Tab.Screen
           name="Profile"
-          component={Profile}
+          component={ProfileScreen}
           options={{
             tabBarIcon: ({focused}) => (
               <Icon
@@ -248,19 +140,19 @@ export default function BottomTabs() {
           <ActionFAB
             icon="arrow-down"
             color="#00A86B"
-            position={{bottom: 140, left: screenWidth * 0.25}}
+            position={{bottom: n(140), left: SCREEN_WIDTH * 0.25}}
             onPress={() => handleAction('Income')}
           />
           <ActionFAB
             icon="repeat"
             color="#0066FF"
-            position={{bottom: 190, left: screenWidth * 0.5 - 25}}
+            position={{bottom: n(190), left: SCREEN_WIDTH * 0.5 - 25}}
             onPress={() => handleAction('Transfer')}
           />
           <ActionFAB
             icon="arrow-up"
             color="#FD3C4A"
-            position={{bottom: 140, right: screenWidth * 0.25}}
+            position={{bottom: n(140), right: SCREEN_WIDTH * 0.25}}
             onPress={() => handleAction('Expense')}
           />
           <TouchableOpacity
@@ -293,51 +185,9 @@ const ActionFAB = ({
   </TouchableOpacity>
 );
 
-const CenteredText = ({text}: {text: string}) => (
-  <View style={styles.screen}>
-    <Text>{text}</Text>
-  </View>
-);
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  tabBarContainer: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    height: n(85),
-  },
-  tabItemsContainer: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    height: 85,
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingBottom: n(20),
-    paddingHorizontal: 20,
-  },
-  leftTabs: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-  },
-  centerSpace: {
-    width: n(80),
-  },
-  rightTabs: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-  },
-  tabItem: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    minWidth: n(50),
   },
   tabLabel: {
     fontSize: 12,
@@ -346,8 +196,8 @@ const styles = StyleSheet.create({
   },
   mainFAB: {
     position: 'absolute',
-    bottom: n(52), // Enhanced position to sit better in the curve
-    left: screenWidth / 2 - 30,
+    bottom: n(50),
+    left: SCREEN_WIDTH / 2 - 30,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: Colors.violet100,
@@ -385,10 +235,5 @@ const styles = StyleSheet.create({
     bottom: 0,
     backgroundColor: 'rgba(0,0,0,0.4)',
     zIndex: 998,
-  },
-  screen: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
 });
