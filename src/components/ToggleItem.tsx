@@ -1,8 +1,9 @@
 // components/ToggleItem.tsx
 import React from 'react';
-import {TouchableOpacity, StyleSheet, View} from 'react-native';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import {StyleSheet, TouchableOpacity} from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import Colors from '../constants/colors';
 
 type ToggleType = 'checkbox' | 'radio' | 'switch';
 
@@ -23,25 +24,25 @@ const ToggleItem: React.FC<ToggleItemProps> = ({
   switch (type) {
     case 'checkbox':
       icon = value ? (
-        <Ionicons name="checkbox" size={24} color="#A259FF" />
+        <Ionicons name="checkbox" size={24} color={Colors.violet100} />
       ) : (
-        <Ionicons name="square-outline" size={24} color="#A259FF" />
+        <Ionicons name="square-outline" size={24} color={Colors.violet100} />
       );
       break;
 
     case 'radio':
       icon = value ? (
-        <FontAwesome name="dot-circle-o" size={24} color="#A259FF" />
+        <FontAwesome name="dot-circle-o" size={24} color={Colors.violet100} />
       ) : (
-        <FontAwesome name="circle-thin" size={24} color="#A259FF" />
+        <FontAwesome name="circle-thin" size={24} color={Colors.violet100} />
       );
       break;
 
     case 'switch':
       icon = value ? (
-        <FontAwesome name="toggle-on" size={34} color="#A259FF" />
+        <FontAwesome name="toggle-on" size={34} color={Colors.violet100} />
       ) : (
-        <FontAwesome name="toggle-off" size={34} color="#ccc" />
+        <FontAwesome name="toggle-off" size={34} color={Colors.violet20} />
       );
       break;
 

@@ -46,6 +46,18 @@
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>We need camera access to take photos.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>We need access to your photo library to select images.</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>We need permission to save images to your photo library.</string>
+	<key>NSDocumentsFolderUsageDescription</key>
+	<string>We need access to open documents.</string>
+	<key>UIFileSharingEnabled</key>
+	<true/>
+	<key>LSSupportsOpeningDocumentsInPlace</key>
+	<true/>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>

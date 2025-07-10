@@ -10,6 +10,7 @@ import {
   SafeAreaView,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
+import BellIcon from 'react-native-vector-icons/FontAwesome';
 import Colors from '../constants/colors';
 
 interface HeaderProps {
@@ -64,7 +65,11 @@ const Header: React.FC<HeaderProps> = ({
         <View style={[styles.container, style]}>
           {showBack ? (
             <TouchableOpacity onPress={onBackPress}>
-              <Icon name="arrow-left" size={24} color="#000" />
+              <Icon
+                name="arrow-left"
+                size={24}
+                color={textStyle ? Colors.light100 : Colors.dark100}
+              />
             </TouchableOpacity>
           ) : (
             <View style={{width: 24}} />
@@ -105,7 +110,7 @@ const Header: React.FC<HeaderProps> = ({
 
           {showBell && (
             <TouchableOpacity onPress={onRightIconPress}>
-              <Icon name="bell" size={24} color={Colors.violet100} />
+              <BellIcon name="bell" size={24} color={Colors.violet100} />
             </TouchableOpacity>
           )}
         </View>

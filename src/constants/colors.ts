@@ -18,6 +18,7 @@ const Colors = {
   violet60: '#B085FF',
   violet80: '#8A4DFF',
   violet100: '#7A29FF',
+  violetLight: '#EEE5FF',
 
   // Red Shades
   red20: '#FFD6D6',
@@ -32,6 +33,7 @@ const Colors = {
   green60: '#66FF99',
   green80: '#33FF70',
   green100: '#00E65E',
+  green120: '#00A86B',
 
   // Yellow Shades
   yellow20: '#FFEDD6',
@@ -46,6 +48,9 @@ const Colors = {
   blue60: '#66A3FF',
   blue80: '#3385FF',
   blue100: '#0066FF',
+
+  grey20: '#91919F',
+  transactionCard: '#FCFCFC',
 };
 
 export default Colors;

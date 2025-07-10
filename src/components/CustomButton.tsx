@@ -10,6 +10,8 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 import Colors from '../constants/colors';
+import FastImage from 'react-native-fast-image';
+import {n} from '../constants/normalize';
 
 interface ButtonProps {
   text: string;
@@ -20,11 +22,12 @@ interface ButtonProps {
   loading?: boolean;
   style?: ViewStyle;
   textStyle?: TextStyle;
+  image?: any;
 }
 
-interface PillButtonProps{
-    text:string,
-    onPress:()=>void
+interface PillButtonProps {
+  text: string;
+  onPress: () => void;
 }
 
 const CustomButton: React.FC<ButtonProps> = ({
@@ -36,6 +39,7 @@ const CustomButton: React.FC<ButtonProps> = ({
   loading,
   style,
   textStyle,
+  image,
 }) => {
   const isPrimary = type === 'primary';
   const isSecondary = type === 'secondary';
@@ -72,6 +76,12 @@ const CustomButton: React.FC<ButtonProps> = ({
             isOutline ? Colors.dark25 : isSecondary ? Colors.violet100 : '#fff'
           }
           style={{marginRight: 6}}
+        />
+      )}
+      {image && (
+        <FastImage
+          source={image}
+          style={{marginRight: 6, width: n(20), height: n(20)}}
         />
       )}
       {loading ? (

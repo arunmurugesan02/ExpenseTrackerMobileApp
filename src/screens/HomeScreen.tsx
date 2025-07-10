@@ -66,7 +66,7 @@ const HomeScreen = () => {
           amount={3129000}
           time="04:30 PM"
         />
-        <InputField placeholder="Password" secureToggle showEyeIcon />
+        <InputField placeholder="Password" secureToggle showEyeIcon onPress={()=>{}} />
         <AttachmentButton onPress={() => console.log('Attach')} />
         <RecurringBottomSheet />
         <ToggleItem

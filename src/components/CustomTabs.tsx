@@ -1,6 +1,7 @@
 import React from 'react';
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import Colors from '../constants/colors';
+import {n} from '../constants/normalize';
 
 interface FilterTabsProps {
   options: string[];
@@ -28,12 +29,12 @@ export const FilterTabs: React.FC<FilterTabsProps> = ({
           key={option}
           style={[
             styles.filterTabButton,
-            selected === option && {backgroundColor: Colors.yellow100},
+            selected === option && {backgroundColor: Colors.yellow20},
           ]}
           onPress={() => onSelect(option)}>
           <Text
             style={{
-              color: selected === option ? '#000' : Colors.dark25,
+              color: selected === option ? Colors.yellow100 : Colors.dark25,
               fontWeight: '600',
             }}>
             {option}
@@ -82,7 +83,8 @@ const styles = StyleSheet.create({
   filterTabContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginVertical: 12,
+    marginVertical: n(15),
+    marginHorizontal: n(10),
   },
   filterTabButton: {
     paddingHorizontal: 16,

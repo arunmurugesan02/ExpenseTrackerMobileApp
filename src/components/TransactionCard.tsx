@@ -1,5 +1,10 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {StyleSheet, View} from 'react-native';
+import FastImage from 'react-native-fast-image';
+import Colors from '../constants/colors';
+import imageConstants from '../constants/imageConstants';
+import {n} from '../constants/normalize';
+import {Regular1, Small} from '../constants/Typography';
 
 type TransactionCardProps = {
   title: string;
@@ -14,26 +19,33 @@ export const TransactionCard = ({
   subtitle,
   amount,
   time,
-  currency = 'Rp',
+  currency = '$',
 }: TransactionCardProps) => {
   const isIncome = amount > 0;
 
   return (
     <View style={styles.card}>
-      <View style={styles.iconContainer}>
-        {/* Replace with icon/image if needed */}
-        <Text style={styles.icon}>👜</Text>
-      </View>
+      <FastImage
+        source={
+          title == 'Food'
+            ? imageConstants.foodLogo
+            : title == 'Shopping'
+            ? imageConstants.shopIcon
+            : imageConstants.subLogo
+        }
+        style={styles.imageContainer}
+        resizeMode={FastImage.resizeMode.contain}
+      />
       <View style={styles.content}>
-        <Text style={styles.title}>{title}</Text>
-        <Text style={styles.subtitle}>{subtitle}</Text>
+        <Regular1 style={styles.title}>{title}</Regular1>
+        <Small style={styles.subtitle}>{subtitle}</Small>
       </View>
       <View style={styles.right}>
-        <Text style={[styles.amount, {color: isIncome ? 'green' : 'red'}]}>
-          {isIncome ? '+' : '-'} {currency}{' '}
+        <Regular1 style={[styles.amount, {color: isIncome ? 'green' : 'red'}]}>
+          {isIncome ? '+' : '-'} {currency}
           {Math.abs(amount).toLocaleString('id-ID')}
-        </Text>
-        <Text style={styles.time}>{time}</Text>
+        </Regular1>
+        <Small style={styles.time}>{time}</Small>
       </View>
     </View>
   );
@@ -43,42 +55,36 @@ const styles = StyleSheet.create({
   card: {
     flexDirection: 'row',
     alignItems: 'center',
-    padding: 12,
-    borderRadius: 12,
-    backgroundColor: 'white',
-    marginBottom: 12,
-    elevation: 1,
+    padding: n(15),
+    borderRadius: n(12),
+    backgroundColor: Colors.transactionCard,
+    marginBottom: n(12),
+    marginHorizontal: n(10),
   },
-  iconContainer: {
-    width: 40,
-    height: 40,
-    borderRadius: 12,
-    backgroundColor: '#fef2cc',
-    justifyContent: 'center',
-    alignItems: 'center',
+  imageContainer: {
+    width: n(50),
+    height: n(50),
   },
-  icon: {
-    fontSize: 18,
-  },
+
   content: {
     flex: 1,
     marginLeft: 12,
+    gap: n(10),
   },
   title: {
-    fontWeight: 'bold',
+    fontWeight: '700',
   },
   subtitle: {
-    color: '#999',
-    fontSize: 12,
+    color: Colors.dark25,
   },
   right: {
     alignItems: 'flex-end',
+    gap: n(10),
   },
   amount: {
     fontWeight: 'bold',
   },
   time: {
-    fontSize: 12,
-    color: '#999',
+    color: Colors.dark25,
   },
 });

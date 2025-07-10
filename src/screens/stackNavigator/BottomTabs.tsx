@@ -1,13 +1,21 @@
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import React, {useState} from 'react';
-import {Alert, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {
+  Alert,
+  Platform,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 import Colors from '../../constants/colors';
 import {n, SCREEN_WIDTH} from '../../constants/normalize';
 import BudgetScreen from '../BudgetScreen';
-import HomeScreen from '../HomeScreen';
+import Home from '../Home';
 import ProfileScreen from '../ProfileScreen';
 import TransactionScreen from '../TransactionScreen';
+import { useNavigation } from '@react-navigation/native';
 
 const AddPlaceholder = () => null;
 
@@ -15,11 +23,12 @@ const Tab = createBottomTabNavigator();
 
 export default function BottomTabs() {
   const [showFAB, setShowFAB] = useState(false);
-
+   const navigation = useNavigation()
   const toggleFAB = () => setShowFAB(prev => !prev);
 
   const handleAction = (label: string) => {
-    Alert.alert(`${label} pressed`);
+    // Alert.alert(`${label} pressed`);
+    // navigation.navigate("")
     setShowFAB(false);
   };
 
@@ -28,10 +37,16 @@ export default function BottomTabs() {
       <Tab.Navigator
         screenOptions={{
           headerShown: false,
+          tabBarStyle: {
+            paddingBottom: Platform.OS === 'android' ? 5 : 0,
+            backgroundColor: '#fff',
+            borderTopWidth: 1,
+            borderTopColor: '#f0f0f0',
+          },
         }}>
         <Tab.Screen
           name="Home"
-          component={HomeScreen}
+          component={Home}
           options={{
             tabBarIcon: ({focused}) => (
               <Icon
@@ -126,13 +141,14 @@ export default function BottomTabs() {
         />
       </Tab.Navigator>
 
-      {/* Enhanced Floating Action Button */}
-      <TouchableOpacity
-        style={styles.mainFAB}
-        onPress={toggleFAB}
-        activeOpacity={0.8}>
-        <Icon name={showFAB ? 'x' : 'plus'} size={28} color="#fff" />
-      </TouchableOpacity>
+      {/* Overlay - placed before FABs to ensure proper stacking */}
+      {showFAB && (
+        <TouchableOpacity
+          style={styles.overlay}
+          onPress={() => setShowFAB(false)}
+          activeOpacity={1}
+        />
+      )}
 
       {/* Action FABs */}
       {showFAB && (
@@ -155,13 +171,22 @@ export default function BottomTabs() {
             position={{bottom: n(140), right: SCREEN_WIDTH * 0.25}}
             onPress={() => handleAction('Expense')}
           />
-          <TouchableOpacity
-            style={styles.overlay}
-            onPress={() => setShowFAB(false)}
-            activeOpacity={1}
-          />
         </>
       )}
+
+      {/* Main Floating Action Button - placed last for highest z-index */}
+      <TouchableOpacity
+        style={[
+          styles.mainFAB,
+          {
+            bottom: Platform.OS === 'ios' ? n(50) : n(40),
+            left: SCREEN_WIDTH / 2 - 30,
+          },
+        ]}
+        onPress={toggleFAB}
+        activeOpacity={0.8}>
+        <Icon name={showFAB ? 'x' : 'plus'} size={28} color="#fff" />
+      </TouchableOpacity>
     </View>
   );
 }
@@ -191,27 +216,25 @@ const styles = StyleSheet.create({
   },
   tabLabel: {
     fontSize: 12,
-    marginTop: 4,
+    marginTop: n(4),
     fontWeight: '500',
   },
   mainFAB: {
     position: 'absolute',
-    bottom: n(50),
-    left: SCREEN_WIDTH / 2 - 30,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: Colors.violet100,
-    width: 60,
-    height: 60,
+    width: n(60),
+    height: n(60),
     borderRadius: 30,
     borderWidth: 4,
     borderColor: '#fff',
-    elevation: 12,
+    elevation: 15,
     shadowColor: '#000',
     shadowOffset: {width: 0, height: 6},
     shadowOpacity: 0.3,
     shadowRadius: 8,
-    zIndex: 1000,
+    zIndex: 1001,
   },
   subFAB: {
     position: 'absolute',
@@ -220,12 +243,12 @@ const styles = StyleSheet.create({
     width: n(50),
     height: n(50),
     borderRadius: 25,
-    elevation: 8,
+    elevation: 12,
     shadowColor: '#000',
     shadowOffset: {width: 0, height: 4},
     shadowOpacity: 0.25,
     shadowRadius: 5,
-    zIndex: 999,
+    zIndex: 1000,
   },
   overlay: {
     position: 'absolute',
@@ -234,6 +257,6 @@ const styles = StyleSheet.create({
     right: 0,
     bottom: 0,
     backgroundColor: 'rgba(0,0,0,0.4)',
-    zIndex: 998,
+    zIndex: 999,
   },
 });

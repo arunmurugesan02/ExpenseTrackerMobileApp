@@ -1,6 +1,5 @@
 import React from 'react';
-import {Text, TextProps} from 'react-native';
-import {StyleSheet} from 'react-native';
+import {Text, TextProps, StyleSheet} from 'react-native';
 
 interface Props extends TextProps {
   children: React.ReactNode;
@@ -14,37 +13,37 @@ export const Typography = StyleSheet.create({
   titleX: {
     fontFamily: Fonts.primary,
     fontSize: 64,
-    lineHeight: 80,
+    lineHeight: 76,
     fontWeight: '700',
   },
   title1: {
     fontFamily: Fonts.primary,
     fontSize: 32,
-    lineHeight: 34,
+    lineHeight: 38,
     fontWeight: '700',
   },
   title2: {
     fontFamily: Fonts.primary,
     fontSize: 24,
-    lineHeight: 22,
+    lineHeight: 30,
     fontWeight: '700',
   },
   title3: {
     fontFamily: Fonts.primary,
     fontSize: 18,
-    lineHeight: 22,
+    lineHeight: 24,
     fontWeight: '700',
   },
   regular1: {
     fontFamily: Fonts.primary,
     fontSize: 16,
-    lineHeight: 19,
+    lineHeight: 22,
     fontWeight: '400',
   },
   regular2: {
     fontFamily: Fonts.primary,
     fontSize: 16,
-    lineHeight: 19,
+    lineHeight: 20,
     fontWeight: '400',
   },
   regular3: {
@@ -62,10 +61,12 @@ export const Typography = StyleSheet.create({
   tiny: {
     fontFamily: Fonts.primary,
     fontSize: 12,
-    lineHeight: 12,
+    lineHeight: 14,
     fontWeight: '400',
   },
 });
+
+// Typography Components
 
 export const TitleX: React.FC<Props> = ({children, style, ...rest}) => (
   <Text style={[Typography.titleX, style]} {...rest}>

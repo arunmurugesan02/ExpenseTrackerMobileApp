@@ -1,6 +1,13 @@
 import React from 'react';
-import Navigator from './src/navigation/Navigator';
+import {SafeAreaProvider} from 'react-native-safe-area-context';
+import AddTransactionScreen from './src/screens/AddTransactionScreen';
 
-const App = () => <Navigator />;
+const App = () => (
+  <SafeAreaProvider>
+    <AddTransactionScreen type="Expense" />
+    {/* <HomeScreen /> */}
+    {/* <Notification /> */}
+  </SafeAreaProvider>
+);
 
 export default App;

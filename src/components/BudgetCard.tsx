@@ -18,7 +18,6 @@ export const BudgetCard = ({
   limit,
   warning = false,
 }: BudgetCardProps) => {
-  console.log('Waring =>', warning);
 
   const remaining = Math.max(limit - spent, 0);
   const percentage = Math.min(spent / limit, 1);
